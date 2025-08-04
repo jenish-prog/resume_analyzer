@@ -1,6 +1,7 @@
 streamlit
 textblob
 nltk
+pdfplumber
 PyPDF2
 spacy
 scikit-learn
