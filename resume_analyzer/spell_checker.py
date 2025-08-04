@@ -1,16 +1,15 @@
-import language_tool_python
-
-tool = language_tool_python.LanguageTool('en-US')
+from textblob import TextBlob
 
 def check_spelling(text):
-    matches = tool.check(text)
-    errors = []
+    blob = TextBlob(text)
+    corrected = blob.correct()
 
-    for match in matches:
-        if match.ruleId.startswith("MORFOLOGIK_RULE") or "Spelling mistake" in match.message:
-            line = text[:match.offset].count('\n') + 1
-            word = text[match.offset: match.offset + match.errorLength]
-            suggestion = match.replacements[0] if match.replacements else "?"
-            errors.append((line, word, suggestion))
+    errors = []
+    original_words = text.split()
+    corrected_words = str(corrected).split()
+
+    for i, (orig, corr) in enumerate(zip(original_words, corrected_words)):
+        if orig != corr:
+            errors.append((i + 1, orig, corr))
 
     return errors
