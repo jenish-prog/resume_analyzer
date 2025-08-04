@@ -1,8 +1,8 @@
 streamlit
+textblob
+nltk
 PyPDF2
 spacy
-nltk
 scikit-learn
 pandas
 numpy
-language-tool-python
